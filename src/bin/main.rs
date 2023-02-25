@@ -356,7 +356,185 @@
 
 // }
 
-fn main() {}
+//a23
+// #[derive(Debug, Eq, PartialEq)]
+// enum Access {
+//     Admin,
+//     User,
+//     Guest
+// }
+
+// fn maybe_access(name: &str) -> Option<Access> {
+//     match name {
+//         "admin" => Some(Access::Admin),
+//         "gary" => Some(Access::User),
+//         _ => None
+//     }
+// }
+
+// fn root() -> Option<Access> {
+//     Some(Access::Admin)
+// }
+
+// fn part_1() -> bool {
+//     maybe_access("admin").is_some()
+// }
+
+// fn part_2() -> Option<Access> {
+//     maybe_access("root").or_else(|| root())
+// }
+
+// fn part_3() -> Access {
+//     maybe_access("Alice").unwrap_or_else(|| Access::Guest)
+// }
+
+// fn main() {}
+
+// #[cfg(test)]
+// mod test {
+//     use crate::*;
+
+//     #[test]
+//     fn check_part_1() {
+//         assert_eq!(part_1(), true, "Admins have an access level")
+//     }
+
+//     #[test]
+//     fn check_part_2() {
+//         assert_eq!(part_2(), Some(Access::Admin), "Root users have admin access")
+//     }
+
+//     #[test]
+//     fn check_part_3() {
+//         assert_eq!(part_3(), Access::Guest, "Alice has guest access")
+//     }
+// }
+
+// fn main() {
+//     let data: Vec<_> = vec![1, 2, 3, 4, 5].iter().map(|num| num * 3).filter(|num| num > &10).collect();
+//     for num in data {
+//         println!("{num}")
+//     }
+// }
+
+// range
+// fn main() {
+//     for num in 1..4 {
+//         println!("{num}")
+//     }
+// }
+
+//a26B - inline modules
+
+// mod greet {
+//     // invalid closures can only exist inside functionss
+//     // let hello = || -> println!("hello");
+
+//     pub fn hello() {
+//         println!("Hello")
+//     }
+// }
+
+// fn main() {
+//     use greet::hello;
+//     {
+//         hello();
+//     }
+//     hello()
+// }
+
+// use chrono::Local;
+
+// use lib::greet::say_hello;
+// fn main() {
+//     say_hello();
+// }
+
+//a20 user input
+
+// use std::io;
+// use std::collections::HashMap;
+
+// fn get_input() -> io::Result<String> {
+//     let mut buffer = String::new();
+//     io::stdin().read_line(&mut buffer)?;
+//     Ok(buffer.trim().to_owned())
+// }
+
+// fn get_msg(input: &str) -> String {
+//     let mut map = HashMap::new();
+//     map.insert("off", "turning off");
+//     map.insert("sleep", "switching to sleep");
+//     map.insert("reboot", "rebooting PC");
+//     map.insert("shutdown", "shutting down pc");
+//     map.insert("hibernate", "Hibernating pc");
+//     let result = map.get(input);
+//     if let Some(value) = result {
+//         return value.to_string()
+//     }
+//     "invalid input".to_owned()
+// }
+
+// fn main() {
+//     match get_input() {
+//         Ok(input) => println!("{}", get_msg(&input)),
+//         Err(e) => println!("{}", e)
+//     }
+// }
+
+// another approach - cleaner
+
+// enum PowerState {
+//     Off,
+//     Sleep,
+//     Reboot,
+//     Shutdown,
+//     Hibernate,
+// }
+
+// impl PowerState {
+//     fn new(state: &str) -> Option<Self> {
+//         match state.trim().to_lowercase().as_str() {
+//             "off" => Some(Self::Off),
+//             "sleep" => Some(Self::Sleep),
+//             "reboot" => Some(Self::Reboot),
+//             "shutdown" => Some(Self::Shutdown),
+//             "hibernate" => Some(Self::Hibernate),
+//             _ => None,
+//         }
+//     }
+// }
+
+// use std::io;
+
+// fn print_power_state(ps: PowerState) {
+//     use PowerState::*;
+//     match ps {
+//         Off => println!("Powering off PC"),
+//         Sleep => println!("Sleep PC"),
+//         Reboot => println!("Rebooting the PC"),
+//         Shutdown => println!("Shutting down the PC"),
+//         Hibernate => println!("Hibernating the PC"),
+//     }
+// }
+
+// fn main() {
+//     println!("Enter new power state");
+//     let mut buffer = String::new();
+//     let user_input = io::stdin().read_line(&mut buffer);
+//     if user_input.is_ok() {
+//         match PowerState::new(&buffer) {
+//             Some(state) => print_power_state(state),
+//             None => println!("invalid power starte")
+//         }
+//     } else {
+//         println!("error reading user input");
+//     }
+// }
+
+fn main() {
+
+}
 
 // template
 // fn main() {}
