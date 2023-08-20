@@ -10,7 +10,7 @@ struct Message {
 
 static TEN_MILLIS: Duration = time::Duration::from_millis(10);
 
-fn send_message(producer: Producer, message: Message) {
+fn send_message(producer: &mut Producer, message: Message) {
     producer.send(&Record::from_key_value(
         "my-topic",
         "same_key",
@@ -22,7 +22,7 @@ fn main() {
     println!("hello from producer");
     println!("creating kafka producer");
 
-    let producer = Producer::from_hosts(vec!("localhost:9092".to_owned()))
+    let mut producer = Producer::from_hosts(vec!("localhost:9092".to_owned()))
     .with_ack_timeout(Duration::from_secs(1))
     .with_required_acks(RequiredAcks::One)
     .create()
@@ -32,7 +32,7 @@ fn main() {
         let dt: DateTime<Utc> = SystemTime::now().into();
         let message = Message { value : dt.to_rfc3339() };
 
-        send_message(producer, message);
+        send_message(&mut producer, message);
 
         thread::sleep(TEN_MILLIS);
     }
