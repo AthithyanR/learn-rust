@@ -532,7 +532,12 @@
 //     }
 // }
 
-// works??
+mod dummy {
+    fn something() -> &'static str {
+        "hello"
+    }
+}
+
 fn main() {
 
 }

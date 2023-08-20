@@ -1,9 +1,9 @@
-use chrono::{DateTime, Utc};
+// use chrono::{DateTime, Utc};
 use kafka::producer::{Producer, Record, RequiredAcks};
 use serde::Serialize;
 use std::{
     thread,
-    time::{self, Duration, SystemTime},
+    time::{self, Duration, /* SystemTime */},
 };
 
 #[derive(Serialize)]
