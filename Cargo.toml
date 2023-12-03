@@ -11,3 +11,5 @@ path = "src/lib/mod.rs"
 
 [dependencies]
 chrono = "0.4.23"
+colored = "2.0.4"
+rand = "0.8.5"

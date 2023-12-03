@@ -532,7 +532,36 @@
 //     }
 // }
 
+use rand::Rng;
+use std::io;
+use std::cmp::Ordering::*;
+use colored::Colorize;
+
 fn main() {
+    let secret_number = rand::thread_rng().gen_range(1..=100);
+    println!("The secret number is {secret_number}");
+
+    loop {
+        println!("{}", "Guess the number".blue());
+        let mut guess = String::new();
+
+        io::stdin().read_line(&mut guess).unwrap();
+
+        let guess: u32 = match guess.trim().parse() {
+            Ok(num) => num,
+            Err(_) => continue,
+        };
+
+        match guess.cmp(&secret_number) {
+            Less => println!("{}", "TOO Small!!!".red()),
+            Greater => println!("{}", "TOO Big!!!".red()),
+            Equal => {
+                println!("{}", "You WON!!!".green());
+                break;
+            },
+        }
+    }
+
 
 }
 
