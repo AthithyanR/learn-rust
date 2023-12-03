@@ -532,37 +532,80 @@
 //     }
 // }
 
-use rand::Rng;
-use std::io;
-use std::cmp::Ordering::*;
-use colored::Colorize;
+// use rand::Rng;
+// use std::io;
+// use std::cmp::Ordering::*;
+// use colored::Colorize;
 
-fn main() {
-    let secret_number = rand::thread_rng().gen_range(1..=100);
-    println!("The secret number is {secret_number}");
+// fn main() {
+//     let secret_number = rand::thread_rng().gen_range(1..=100);
+//     println!("The secret number is {secret_number}");
 
-    loop {
-        println!("{}", "Guess the number".blue());
-        let mut guess = String::new();
+//     loop {
+//         println!("{}", "Guess the number".blue());
+//         let mut guess = String::new();
 
-        io::stdin().read_line(&mut guess).unwrap();
+//         io::stdin().read_line(&mut guess).unwrap();
 
-        let guess: u32 = match guess.trim().parse() {
-            Ok(num) => num,
-            Err(_) => continue,
-        };
+//         let guess: u32 = match guess.trim().parse() {
+//             Ok(num) => num,
+//             Err(_) => continue,
+//         };
 
-        match guess.cmp(&secret_number) {
-            Less => println!("{}", "TOO Small!!!".red()),
-            Greater => println!("{}", "TOO Big!!!".red()),
-            Equal => {
-                println!("{}", "You WON!!!".green());
-                break;
-            },
-        }
+//         match guess.cmp(&secret_number) {
+//             Less => println!("{}", "TOO Small!!!".red()),
+//             Greater => println!("{}", "TOO Big!!!".red()),
+//             Equal => {
+//                 println!("{}", "You WON!!!".green());
+//                 break;
+//             },
+//         }
+//     }
+
+
+// }
+
+// fn main() {
+//     let mut s = String::from("Hello");
+//     println!("{}", s);
+//     s.push_str("ll");``
+//     println!("{}", s);
+
+//     {
+//         let s2 = &mut s;
+//         println!("{}", s2);
+//         s2.push_str("gg");
+
+//         println!("{}", s2);
+//     }
+
+//     let s3 = &mut s;
+
+//     println!("{}", s3);
+// }
+
+use reqwest;
+use std::env;
+use tokio::fs;
+
+#[tokio::main]
+async fn main() -> Result<(), reqwest::Error> {
+    let args = env::args().collect::<Vec<String>>();
+    if args.len() < 2 { panic!("Please provide the url") };
+
+    let url = &args[1];
+    println!("{}", url);
+    let response = reqwest::Client::new().get(url).query(&[("yoo", "hello")]).send().await?;
+
+    if response.status().is_success() {
+        let body = response.text().await?;
+        // println!("Response body:\n{}", body);
+        fs::write("./out.html", &body).await.unwrap();
+    } else {
+        println!("Request failed with status: {} - {}", response.status(), response.status().canonical_reason().unwrap_or("unknown"));
     }
 
-
+    Ok(())
 }
 
 // template
