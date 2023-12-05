@@ -562,7 +562,6 @@
 //         }
 //     }
 
-
 // }
 
 // fn main() {
@@ -584,28 +583,79 @@
 //     println!("{}", s3);
 // }
 
-use reqwest;
-use std::env;
-use tokio::fs;
+// use reqwest;
+// use std::env;
+// use tokio::fs;
 
-#[tokio::main]
-async fn main() -> Result<(), reqwest::Error> {
-    let args = env::args().collect::<Vec<String>>();
-    if args.len() < 2 { panic!("Please provide the url") };
+// #[tokio::main]
+// async fn main() -> Result<(), reqwest::Error> {
+//     let args = env::args().collect::<Vec<String>>();
+//     if args.len() < 2 { panic!("Please provide the url") };
 
-    let url = &args[1];
-    println!("{}", url);
-    let response = reqwest::Client::new().get(url).query(&[("yoo", "hello")]).send().await?;
+//     let url = &args[1];
+//     println!("{}", url);
+//     let response = reqwest::Client::new().get(url).query(&[("yoo", "hello")]).send().await?;
 
-    if response.status().is_success() {
-        let body = response.text().await?;
-        // println!("Response body:\n{}", body);
-        fs::write("./out.html", &body).await.unwrap();
-    } else {
-        println!("Request failed with status: {} - {}", response.status(), response.status().canonical_reason().unwrap_or("unknown"));
-    }
+//     if response.status().is_success() {
+//         let body = response.text().await?;
+//         // println!("Response body:\n{}", body);
+//         fs::write("./out.html", &body).await.unwrap();
+//     } else {
+//         println!("Request failed with status: {} - {}", response.status(), response.status().canonical_reason().unwrap_or("unknown"));
+//     }
 
-    Ok(())
+//     Ok(())
+// }
+
+// use std::collections::HashMap;
+// use std::hash::Hash;
+// use std::thread;
+// use std::time::Duration;
+
+// struct Cacher<F, T>
+// where
+//     F: Fn(T) -> T,
+//     T: PartialEq + Eq + Hash + Clone,
+// {
+//     calculation: F,
+//     value: HashMap<T, T>,
+// }
+
+// impl<F, T> Cacher<F, T>
+// where
+//     F: Fn(T) -> T,
+//     T: PartialEq + Eq + Hash + Clone,
+// {
+//     fn new(calculation: F) -> Self {
+//         Self {
+//             calculation,
+//             value: HashMap::new(),
+//         }
+//     }
+
+//     fn value(&mut self, arg: T) -> T {
+//         match self.value.get(&arg) {
+//             Some(v) => v.clone(),
+//             None => {
+//                 println!("Calculating...");
+//                 thread::sleep(Duration::from_millis(500));
+//                 let result = (self.calculation)(arg.clone());
+//                 self.value.insert(arg, result.clone());
+//                 result
+//             }
+//         }
+//     }
+// }
+
+// fn main() {
+//     let mut cacher = Cacher::new(|num| num * num);
+//     println!("{}", cacher.value(2));
+//     println!("{}", cacher.value(5));
+//     println!("{}", cacher.value(2));
+// }
+
+fn main() {
+    println!("yoo")
 }
 
 // template
