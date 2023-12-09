@@ -654,8 +654,42 @@
 //     println!("{}", cacher.value(2));
 // }
 
+use std::{rc::Rc, cell::RefCell};
+
+#[derive(Debug, Clone)]
+struct Node {
+    value: isize,
+    next: Option<Rc<RefCell<Node>>>
+}
+
+#[derive(Debug)]
+struct LinkedList {
+    head: Option<Rc<RefCell<Node>>>
+}
+
 fn main() {
-    println!("yoo")
+    let mut linked_list = LinkedList { head: None };
+
+    // let node1 = Rc::new(RefCell::new(Node { value: 1, next: None }));
+    // let node2 = Rc::new(RefCell::new(Node { value: 2, next: None }));
+    // let node3 = Rc::new(RefCell::new(Node { value: 3, next: None }));
+    // node2.borrow_mut().next = Some(node3);
+    // node1.borrow_mut().next = Some(node2);
+    // linked_list.head = Some(node1);
+    
+    let int_to_be_nodes = vec![1, 2, 3, 4];
+    linked_list.head = int_to_be_nodes
+        .iter().rev()
+        .fold(None, |acc, &val| {
+            let new_node = Node {
+                value: val,
+                next: acc
+            };
+
+            Some(Rc::new(RefCell::new(new_node)))
+        });
+
+    println!("{:#?}", linked_list);
 }
 
 // template
